@@ -1,7 +1,35 @@
-@(message: String)
+@(coinForm: Form[String], result: List[(Coin, Int)], msg: Option[String])
 
-@main("Welcome to Play") {
+@main("Coins") {
+	
+	<div class="container">
+	<div class="row">
+	<div class="col-md-6">
+	
+	<h1>Coins</h1>
+	
+	@helper.form(action=routes.Application.calcChange){
 
-    @play20.welcome(message)
+		@if(msg.isDefined){<div class="alert alert-danger">@msg.get</div>}
+		<input name="coins" type="text" class="form-control" value="@coinForm("coins").value"/>
+		<input type="submit" value="Go" class="btn btn-default"/>
+
+	}
+	
+	@if(!result.isEmpty){
+		<h2>Results: </h2>
+		<table class="table">
+		<tr><th>Coin</th><th>Number</th></tr>
+		@for(e <-result){
+			<tr>
+			<td>@e._1.amount</td><td>@e._2</td>
+			</tr>
+			}
+		</table>
+		}
+	
+	</div>
+	</div>
+	</div>
 
 }
