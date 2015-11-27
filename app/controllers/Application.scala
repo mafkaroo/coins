@@ -9,7 +9,7 @@ import services.CoinChange
 
 class Application @Inject() (coinChange: CoinChange) extends Controller {
 
-  val coinForm: Form[String] = Form(("coins", nonEmptyText.verifying(coinChange.valid _)))
+  val coinForm: Form[String] = Form(("coins", nonEmptyText(minLength = 1, maxLength =8).verifying(coinChange.validCurrency _)))
 
   def index() = Action { request =>
     Ok(views.html.index(coinForm, Nil, None))

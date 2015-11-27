@@ -62,17 +62,17 @@ class ApplicationSpec extends Specification {
     "parse input" in {
       val change = new CoinChange
 
-      change.valid("£1234.02p") must beTrue
-      change.valid("£1234") must beTrue
-      change.valid("$1234") must beFalse
-      change.valid("1234") must beTrue
-      change.valid("1234p") must beTrue
-      change.valid("12 34") must beFalse
-      change.valid("nonesense") must beFalse
-      change.valid("1234") must beTrue
-      change.valid("£1234p") must beTrue
-      change.valid("p1234£") must beFalse
-      change.valid("£12.34.02p") must beFalse
+      change.validCurrency("£1234.02p") must beTrue
+      change.validCurrency("£1234") must beTrue
+      change.validCurrency("$1234") must beFalse
+      change.validCurrency("1234") must beTrue
+      change.validCurrency("1234p") must beTrue
+      change.validCurrency("12 34") must beFalse
+      change.validCurrency("nonesense") must beFalse
+      change.validCurrency("1234") must beTrue
+      change.validCurrency("£1234p") must beTrue
+      change.validCurrency("p1234£") must beFalse
+      change.validCurrency("£12.34.02p") must beFalse
     }
   }
 }

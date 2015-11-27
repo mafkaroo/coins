@@ -7,8 +7,8 @@ import models.Coin
 class CoinChange {
 
   val coins = List(new Coin(200), new Coin(100), new Coin(50), new Coin(20), new Coin(10), new Coin(5), new Coin(2), new Coin(1))
-  val higherCurrencyCode = Character.valueOf('£')
-  val lowerCurrencyCode = Character.valueOf('p')
+  val higherCurrencyCode = '£'
+  val lowerCurrencyCode = 'p'
   val separator = '.'
 
   val hundred = new BigDecimal(100)
@@ -18,8 +18,9 @@ class CoinChange {
     bd.multiply(hundred).intValue()
   }
 
+  //TODO need better exception handling
   def parseStringToCurrency(s: String): BigDecimal = {
-    if (valid(s)) {
+    if (validCurrency(s)) {
       val hasPound = s.head == higherCurrencyCode
       val hasPence = s.last == lowerCurrencyCode
 
@@ -38,7 +39,7 @@ class CoinChange {
 
   //should be a better way to do this with reg ex
   //note this is case sensitive, need to validate with requirements
-  def valid(s: String): Boolean = {
+  def validCurrency(s: String): Boolean = {
     val withoutpound = if (s.head == higherCurrencyCode) s.tail.reverse else s.reverse
     val withoutpence = if (withoutpound.head == lowerCurrencyCode) withoutpound.tail else withoutpound
     val count = s.count(c => c == separator)
